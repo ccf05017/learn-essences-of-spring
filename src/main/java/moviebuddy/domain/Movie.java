@@ -1,4 +1,4 @@
-package moviebuddy;
+package moviebuddy.domain;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -77,7 +77,7 @@ public class Movie {
         return "Movie [title=" + title + ", releaseYear=" + releaseYear + ", director=" + director + ", watchedDate=" + watchedDate.format(DEFAULT_WATCHED_DATE_FORMATTER) + "]";
     }
 
-    
+
     public static Movie of(String title, List<String> genres, String language, String country, int releaseYear, String director, List<String> actors, URL imdbLink, String watchedDate) {
         return new Movie(title, genres, language, country, releaseYear, director, actors, imdbLink, LocalDate.parse(watchedDate, Movie.DEFAULT_WATCHED_DATE_FORMATTER));
     }
