@@ -1,17 +1,18 @@
 package moviebuddy.domain;
 
-import moviebuddy.ApplicationException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 public class JaxbMovieReaderTest {
-    public static void main(String[] args) {
+    @Test
+    void loadMoviesTest() {
+        int expectedMovieSize = 1375;
         MovieReader movieReader = new JaxbMovieReader();
 
         List<Movie> movies = movieReader.loadMovies();
 
-        if (movies.size() != 1375) {
-            throw new ApplicationException("JAXB에서 로딩된 영화 수량이 기대값과 다릅니다.");
-        }
+        Assertions.assertEquals(movies.size(), expectedMovieSize);
     }
 }

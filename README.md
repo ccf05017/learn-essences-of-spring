@@ -80,3 +80,4 @@ $❯ build/moviebuddy/bin/moviebuddy
 
 #### Section3.
 - 여러 XML 언마샬링 라이브러리가 있는데 이 중 `JAXB`를 이용한 XmlMovieReader를 구현하는 실습을 진행한다.
+- 모두가 아는 단위테스트 할 때 떠오르는 그것 `JUnit`을 적용한다.
