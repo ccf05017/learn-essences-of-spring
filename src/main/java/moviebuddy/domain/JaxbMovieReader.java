@@ -2,7 +2,9 @@ package moviebuddy.domain;
 
 import moviebuddy.ApplicationException;
 
-import javax.xml.bind.*;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
