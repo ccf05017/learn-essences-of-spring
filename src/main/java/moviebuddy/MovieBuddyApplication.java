@@ -1,5 +1,6 @@
 package moviebuddy;
 
+import moviebuddy.configuration.MovieBuddyConfiguration;
 import moviebuddy.domain.Movie;
 import moviebuddy.domain.MovieFinder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

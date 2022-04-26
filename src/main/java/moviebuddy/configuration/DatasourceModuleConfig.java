@@ -1,16 +1,16 @@
-package moviebuddy;
+package moviebuddy.configuration;
 
-import moviebuddy.domain.MovieFinder;
+import moviebuddy.domain.MovieReader;
 import moviebuddy.infrastructure.CsvMovieReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MovieBuddyConfiguration {
+public class DatasourceModuleConfig {
 
     @Bean
-    public MovieFinder movieFinder() {
-        return new MovieFinder(new CsvMovieReader());
+    public MovieReader movieReader() {
+        return new CsvMovieReader();
     }
 
 }

@@ -1,7 +1,7 @@
 package moviebuddy.domain;
 
 import moviebuddy.infrastructure.CsvMovieReader;
-import moviebuddy.MovieBuddyConfiguration;
+import moviebuddy.configuration.MovieBuddyConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
