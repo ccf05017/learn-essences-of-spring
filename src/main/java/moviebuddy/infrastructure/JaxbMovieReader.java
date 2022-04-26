@@ -1,6 +1,8 @@
-package moviebuddy.domain;
+package moviebuddy.infrastructure;
 
 import moviebuddy.ApplicationException;
+import moviebuddy.domain.Movie;
+import moviebuddy.domain.MovieReader;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

@@ -1,8 +1,9 @@
 package moviebuddy;
 
-import moviebuddy.domain.CsvMovieReader;
+import moviebuddy.infrastructure.CsvMovieReader;
 import moviebuddy.domain.Movie;
 import moviebuddy.domain.MovieFinder;
+import moviebuddy.infrastructure.factory.MovieBuddyFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -36,7 +37,8 @@ public class MovieBuddyApplication {
      */
 
     public void run(String[] args) throws Exception {
-        final MovieFinder movieFinder = new MovieFinder(new CsvMovieReader());
+        final MovieBuddyFactory movieBuddyFactory = new MovieBuddyFactory();
+        final MovieFinder movieFinder = movieBuddyFactory.movieFinder();
         final AtomicBoolean running = new AtomicBoolean(true);
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         final PrintWriter output = new PrintWriter(System.out, false);

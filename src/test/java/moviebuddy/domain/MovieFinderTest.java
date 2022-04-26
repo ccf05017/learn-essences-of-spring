@@ -1,7 +1,7 @@
 package moviebuddy.domain;
 
-import moviebuddy.domain.Movie;
-import moviebuddy.domain.MovieFinder;
+import moviebuddy.infrastructure.CsvMovieReader;
+import moviebuddy.infrastructure.factory.MovieBuddyFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,8 @@ public class MovieFinderTest {
     @Test
     void findMovieByDirecterTest() {
         int expectedMovieSize = 3;
-        MovieFinder movieFinder = new MovieFinder(csvMovieReader);
+        MovieBuddyFactory movieBuddyFactory = new MovieBuddyFactory();
+        MovieFinder movieFinder = movieBuddyFactory.movieFinder();
 
         List<Movie> result = movieFinder.directedBy("Michael Bay");
 
