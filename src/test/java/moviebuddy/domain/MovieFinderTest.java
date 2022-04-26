@@ -1,9 +1,10 @@
 package moviebuddy.domain;
 
 import moviebuddy.infrastructure.CsvMovieReader;
-import moviebuddy.infrastructure.factory.MovieBuddyFactory;
+import moviebuddy.MovieBuddyConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 
@@ -16,8 +17,9 @@ public class MovieFinderTest {
     @Test
     void findMovieByDirecterTest() {
         int expectedMovieSize = 3;
-        MovieBuddyFactory movieBuddyFactory = new MovieBuddyFactory();
-        MovieFinder movieFinder = movieBuddyFactory.movieFinder();
+        AnnotationConfigApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext(MovieBuddyConfiguration.class);
+        MovieFinder movieFinder = applicationContext.getBean(MovieFinder.class);
 
         List<Movie> result = movieFinder.directedBy("Michael Bay");
 
