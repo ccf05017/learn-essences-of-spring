@@ -15,10 +15,10 @@ public class DomainModuleConfig {
 //    }
 
     // 생성자 DI
-    @Bean
+//    @Bean
 //    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) <- 프로토타입 스코프로 변경하고 싶을 때의 설정
-    public MovieFinder movieFinder(MovieReader movieReader) {
-        return new MovieFinder(movieReader);
-    }
+//    public MovieFinder movieFinder(MovieReader movieReader) {
+//        return new MovieFinder(movieReader);
+//    }
 
 }

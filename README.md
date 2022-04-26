@@ -95,3 +95,8 @@ $❯ build/moviebuddy/bin/moviebuddy
   - Prototype: 빈이 요청될 때마다 새로운 빈을 만든다. 컨텍스트 내에 여러개가 존재할 수 있다.
   - Web 전용 Scope
     - Request, Session 등
+
+#### Section7.
+- 자동 와이어링 동작 우선순위
+  - 먼저 타입으로 탐색한다.
+  - 타입이 중복된 경우 이름으로 탐색한다.

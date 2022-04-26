@@ -3,6 +3,7 @@ package moviebuddy.infrastructure;
 import moviebuddy.ApplicationException;
 import moviebuddy.domain.Movie;
 import moviebuddy.domain.MovieReader;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class JaxbMovieReader implements MovieReader {
     private final JAXBContext context;
     private final Unmarshaller unmarshaller;
