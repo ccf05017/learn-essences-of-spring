@@ -1,8 +1,5 @@
 package moviebuddy.configuration;
 
-import moviebuddy.domain.MovieFinder;
-import moviebuddy.domain.MovieReader;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
