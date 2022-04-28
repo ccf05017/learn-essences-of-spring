@@ -103,3 +103,6 @@ $❯ build/moviebuddy/bin/moviebuddy
   
 #### Section8.
 - 스프링 컨텍스트 테스트를 원활하게 하려면 필드 DI는 가능한 절대적으로 피하자
+
+#### Section11.
+- 스프링은 환경에 따라 빈 구성정보를 달리줄 수 있는 `Profile` 기능을 제공한다.

@@ -1,6 +1,5 @@
 package moviebuddy.domain;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.stream.Collectors;
 public class MovieFinder {
     private final MovieReader movieReader;
 
-    public MovieFinder(@Qualifier("csvMovieReader") MovieReader movieReader) {
+    public MovieFinder(MovieReader movieReader) {
 //    public MovieFinder(MovieReader csvMovieReader) {
         this.movieReader = movieReader;
 //        this.movieReader = csvMovieReader;
