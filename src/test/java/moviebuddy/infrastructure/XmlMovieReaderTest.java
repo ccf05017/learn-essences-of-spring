@@ -14,13 +14,13 @@ import java.util.List;
 
 @SpringJUnitConfig(MovieBuddyConfiguration.class)
 @ActiveProfiles(MovieBuddyProfile.XML_MODE)
-class JaxbMovieReaderTest {
+class XmlMovieReaderTest {
 
     private final MovieReader movieReader;
 
     // 어떤 MovieReader를 사용할지 명시적으로 드러냈기 때문에 문제 없음
     @Autowired
-    public JaxbMovieReaderTest(MovieReader jaxbMovieReader) {
+    public XmlMovieReaderTest(MovieReader jaxbMovieReader) {
         this.movieReader = jaxbMovieReader;
     }
 

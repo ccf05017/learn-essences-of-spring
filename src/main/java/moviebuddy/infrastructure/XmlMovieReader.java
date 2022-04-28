@@ -5,32 +5,26 @@ import moviebuddy.MovieBuddyProfile;
 import moviebuddy.domain.Movie;
 import moviebuddy.domain.MovieReader;
 import org.springframework.context.annotation.Profile;
+import org.springframework.oxm.Unmarshaller;
 import org.springframework.stereotype.Component;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Profile(MovieBuddyProfile.XML_MODE)
 @Component
-public class JaxbMovieReader implements MovieReader {
-    private final JAXBContext context;
+public class XmlMovieReader implements MovieReader {
     private final Unmarshaller unmarshaller;
 
-    public JaxbMovieReader() {
-        try {
-            context = JAXBContext.newInstance(MovieMetaData.class);
-            unmarshaller = context.createUnmarshaller();
-        } catch (JAXBException e) {
-            throw new ApplicationException("failed to create jaxb context");
-        }
+    public XmlMovieReader(Unmarshaller unmarshaller) {
+        this.unmarshaller = Objects.requireNonNull(unmarshaller);
     }
 
     @Override
@@ -42,7 +36,7 @@ public class JaxbMovieReader implements MovieReader {
             final MovieMetaData movieMetaData = (MovieMetaData) unmarshaller.unmarshal(source);
 
             return movieMetaData.toMovies();
-        } catch (JAXBException e) {
+        } catch (IOException e) {
             throw new ApplicationException("failed to load movies by jaxb");
         }
     }
@@ -62,7 +56,7 @@ public class JaxbMovieReader implements MovieReader {
 
         public List<Movie> toMovies() {
             return movies.stream()
-                    .map(it -> it.toMovie())
+                    .map(MovieData::toMovie)
                     .collect(Collectors.toList());
         }
     }
