@@ -106,3 +106,8 @@ $❯ build/moviebuddy/bin/moviebuddy
 
 #### Section11.
 - 스프링은 환경에 따라 빈 구성정보를 달리줄 수 있는 `Profile` 기능을 제공한다.
+
+#### Section12.
+- Spring Lifecycle Callbacks
+  - 스프링 빈의 생명주기 사이에 실행할 수 있는 콜백 인터페이스들이 존재함
+  - 대표적으로 initializing(생성시), disposal(소멸시)가 존재함

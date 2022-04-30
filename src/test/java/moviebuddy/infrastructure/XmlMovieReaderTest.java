@@ -18,10 +18,9 @@ class XmlMovieReaderTest {
 
     private final MovieReader movieReader;
 
-    // 어떤 MovieReader를 사용할지 명시적으로 드러냈기 때문에 문제 없음
     @Autowired
-    public XmlMovieReaderTest(MovieReader jaxbMovieReader) {
-        this.movieReader = jaxbMovieReader;
+    public XmlMovieReaderTest(MovieReader movieReader) {
+        this.movieReader = movieReader;
     }
 
     @Test

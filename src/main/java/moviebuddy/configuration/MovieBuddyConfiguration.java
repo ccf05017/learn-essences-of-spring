@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 @Configuration
-@ComponentScan(basePackages = { "moviebuddy" })
+@ComponentScan(basePackages = {"moviebuddy"})
 @Import({DomainModuleConfig.class, DatasourceModuleConfig.class})
 public class MovieBuddyConfiguration {
 
