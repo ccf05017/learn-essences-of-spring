@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 
-public class CsvMovieReaderTest {
+class CsvMovieReaderTest {
 
     @Test
     @DisplayName("올바른 경로의 메타 데이터로 무비리더를 기동할 경우")
