@@ -111,3 +111,7 @@ $❯ build/moviebuddy/bin/moviebuddy
 - Spring Lifecycle Callbacks
   - 스프링 빈의 생명주기 사이에 실행할 수 있는 콜백 인터페이스들이 존재함
   - 대표적으로 initializing(생성시), disposal(소멸시)가 존재함
+  
+#### Section14.
+- 다양한 Resource를 받을 수 있도록 스프링에서는 추상화된 기술을 제공한다.
+- ResourceLoader, ResourceLoaderAware를 응용할 수 있다.
