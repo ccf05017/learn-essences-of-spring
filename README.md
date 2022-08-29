@@ -115,3 +115,5 @@ $❯ build/moviebuddy/bin/moviebuddy
 #### Section14.
 - 다양한 Resource를 받을 수 있도록 스프링에서는 추상화된 기술을 제공한다.
 - ResourceLoader, ResourceLoaderAware를 응용할 수 있다.
+- ResourceLoader는 Application Context에 기본적으로 내장되어 있다.
+  - 이 때문에 스프링을 사용하면 굳이 Resource를 부르기 위해 이상한 짓 안하고 스프링 컨테이너를 이용하면 된다.

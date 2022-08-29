@@ -11,12 +11,8 @@ import org.springframework.core.io.ResourceLoader;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.FileNotFoundException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
 
-public abstract class AbstractFileSystemMovieReader implements ResourceLoaderAware {
+public abstract class AbstractMetaDataResourceMovieReader implements ResourceLoaderAware {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     protected String metadata;

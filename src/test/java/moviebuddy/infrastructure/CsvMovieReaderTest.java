@@ -12,22 +12,22 @@ class CsvMovieReaderTest {
     @Test
     @DisplayName("올바른 경로의 메타 데이터로 무비리더를 기동할 경우")
     void validCase() throws Exception {
-        AbstractFileSystemMovieReader abstractFileSystemMovieReader = new CsvMovieReader();
-        abstractFileSystemMovieReader.setMetadata("movie_metadata.csv");
-        abstractFileSystemMovieReader.setResourceLoader(new DefaultResourceLoader());
+        AbstractMetaDataResourceMovieReader abstractMetaDataResourceMovieReader = new CsvMovieReader();
+        abstractMetaDataResourceMovieReader.setMetadata("movie_metadata.csv");
+        abstractMetaDataResourceMovieReader.setResourceLoader(new DefaultResourceLoader());
 
-        abstractFileSystemMovieReader.afterPropertiesSet();
+        abstractMetaDataResourceMovieReader.afterPropertiesSet();
     }
 
     @Test
     @DisplayName("잘못된 경로의 메타 데이터로 무비리더를 기동할 경우")
     void invalidCase() {
-        AbstractFileSystemMovieReader abstractFileSystemMovieReader = new CsvMovieReader();
-        abstractFileSystemMovieReader.setResourceLoader(new DefaultResourceLoader());
+        AbstractMetaDataResourceMovieReader abstractMetaDataResourceMovieReader = new CsvMovieReader();
+        abstractMetaDataResourceMovieReader.setResourceLoader(new DefaultResourceLoader());
 
         Assertions.assertThrows(FileNotFoundException.class, () -> {
-           abstractFileSystemMovieReader.setMetadata("invalid metadata path");
-           abstractFileSystemMovieReader.afterPropertiesSet();
+           abstractMetaDataResourceMovieReader.setMetadata("invalid metadata path");
+           abstractMetaDataResourceMovieReader.afterPropertiesSet();
         });
     }
 
