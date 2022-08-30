@@ -18,18 +18,14 @@ import java.util.List;
 @TestPropertySource(properties = {"movie.metadata=movie_metadata.xml"})
 class XmlMovieReaderTest {
 
-    private final MovieReader movieReader;
-
     @Autowired
-    public XmlMovieReaderTest(MovieReader movieReader) {
-        this.movieReader = movieReader;
-    }
+    private XmlMovieReader xmlMovieReader;
 
     @Test
     void loadMoviesTest() {
         int expectedMovieSize = 1375;
 
-        List<Movie> movies = movieReader.loadMovies();
+        List<Movie> movies = xmlMovieReader.loadMovies();
 
         Assertions.assertEquals(movies.size(), expectedMovieSize);
     }

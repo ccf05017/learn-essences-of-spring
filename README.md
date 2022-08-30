@@ -117,3 +117,15 @@ $❯ build/moviebuddy/bin/moviebuddy
 - ResourceLoader, ResourceLoaderAware를 응용할 수 있다.
 - ResourceLoader는 Application Context에 기본적으로 내장되어 있다.
   - 이 때문에 스프링을 사용하면 굳이 Resource를 부르기 위해 이상한 짓 안하고 스프링 컨테이너를 이용하면 된다.
+
+#### Section15.
+- 원격지에서 리소스를 받아오면 속도가 더럽게 느려진다
+- 고려해볼 방법은 여러가지가 있다.
+    - DB에 영속화 시켜도 되고
+    - 캐싱해도 된다.
+- 실습에서는 객체 캐싱을 이용해보자
+  - 카페인을 사용해볼 예정
+  - 카페인은 메모리 기반 캐시
+  - 잘못 쓰면 OOM 난다
+- 스프링은 이 캐시까지 추상화해줄 수 있다.
+  - 캐시, 캐시 매니저 인터페이스로 구성된다.

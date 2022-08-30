@@ -4,6 +4,8 @@ import moviebuddy.ApplicationException;
 import moviebuddy.MovieBuddyProfile;
 import moviebuddy.domain.Movie;
 import moviebuddy.domain.MovieReader;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,8 +25,20 @@ import java.util.stream.Collectors;
 @Repository
 public class CsvMovieReader extends AbstractMetaDataResourceMovieReader implements MovieReader {
 
+    private final CacheManager cacheManager;
+
+    public CsvMovieReader(CacheManager cacheManager) {
+        this.cacheManager = cacheManager;
+    }
+
     @Override
     public List<Movie> loadMovies() {
+        Cache cache = cacheManager.getCache(getClass().getName());
+        List<Movie> movies = cache.get("csv.movies", List.class);
+        if (Objects.nonNull(movies) && movies.size() > 0) {
+            return movies;
+        }
+
         try {
             InputStream content = getMetaDataResource().getInputStream();
             final Function<String, Movie> mapCsv = csv -> {
@@ -47,7 +62,7 @@ public class CsvMovieReader extends AbstractMetaDataResourceMovieReader implemen
                 }
             };
 
-            return new BufferedReader(new InputStreamReader(content, StandardCharsets.UTF_8))
+            movies = new BufferedReader(new InputStreamReader(content, StandardCharsets.UTF_8))
                     .lines()
                     .skip(1)
                     .map(mapCsv)
@@ -55,6 +70,9 @@ public class CsvMovieReader extends AbstractMetaDataResourceMovieReader implemen
         } catch (IOException error) {
             throw new ApplicationException("failed to load movies data.", error);
         }
+
+        cache.put("csv.movies", movies);
+        return movies;
     }
 
 }
