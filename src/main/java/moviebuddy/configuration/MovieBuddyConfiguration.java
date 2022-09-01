@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import moviebuddy.domain.Movie;
 import moviebuddy.domain.MovieReader;
+import moviebuddy.infrastructure.CachingMovieReader;
 import moviebuddy.infrastructure.CsvMovieReader;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
@@ -29,8 +30,8 @@ public class MovieBuddyConfiguration {
 
     @Bean
     @Primary
-    public MovieReader csvMovieReader() {
-        return new CsvMovieReader(caffeineCacheManager());
+    public MovieReader cachingMovieReader(CacheManager cacheManager, MovieReader target) {
+        return new CachingMovieReader(cacheManager, target);
     }
 
     @Bean
