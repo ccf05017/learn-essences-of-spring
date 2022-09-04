@@ -6,8 +6,11 @@ import moviebuddy.domain.Movie;
 import moviebuddy.domain.MovieReader;
 import moviebuddy.infrastructure.CachingMovieReader;
 import moviebuddy.infrastructure.CsvMovieReader;
+import moviebuddy.infrastructure.advice.CachingAdvice;
+import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
@@ -30,8 +33,15 @@ public class MovieBuddyConfiguration {
 
     @Bean
     @Primary
-    public MovieReader cachingMovieReader(CacheManager cacheManager, MovieReader target) {
-        return new CachingMovieReader(cacheManager, target);
+    public ProxyFactoryBean cachingMovieReaderFactory(ApplicationContext applicationContext) {
+        MovieReader target = applicationContext.getBean(MovieReader.class);
+        CacheManager cacheManager = applicationContext.getBean(CacheManager.class);
+
+        ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
+        proxyFactoryBean.setTarget(target);
+        proxyFactoryBean.addAdvice(new CachingAdvice(cacheManager));
+
+        return proxyFactoryBean;
     }
 
     @Bean

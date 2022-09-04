@@ -143,3 +143,5 @@ $❯ build/moviebuddy/bin/moviebuddy
 - 이를 해결하기 위해 동적 프록시 기술을 이용할 수 있다.
 - 문제는 동적 프록시 기술을 사용하더라도 여전히 구현하기 매우 화가 날 수 있다.
   - 이를 해결하기 위해 스프링의 AOP 기술을 사용하면 좋다
+- JDK 기본 기술 외 여러가지 AOP 기술을 제공한다.
+  - Bytebuddy, CGLib, JavaAssist 등
