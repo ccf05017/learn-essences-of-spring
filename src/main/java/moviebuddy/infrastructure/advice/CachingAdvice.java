@@ -2,6 +2,8 @@ package moviebuddy.infrastructure.advice;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
@@ -9,6 +11,7 @@ import java.util.Objects;
 
 public class CachingAdvice implements MethodInterceptor {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final CacheManager cacheManager;
 
     public CachingAdvice(CacheManager cacheManager) {
@@ -21,11 +24,13 @@ public class CachingAdvice implements MethodInterceptor {
         Object cachedValue = cache.get(invocation.getMethod().getName(), Object.class);
 
         if (Objects.nonNull(cachedValue)) {
+            log.info("returns cached data. [{}]", invocation);
             return cachedValue;
         }
 
         cachedValue = invocation.proceed();
         cache.put(invocation.getMethod().getName(), cachedValue);
+        log.info("returns cached data. [{}]", invocation);
 
         return cachedValue;
     }

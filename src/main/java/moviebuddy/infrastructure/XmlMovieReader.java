@@ -9,6 +9,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.stereotype.Component;
 
+import javax.cache.annotation.CacheResult;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;

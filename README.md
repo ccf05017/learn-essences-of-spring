@@ -145,3 +145,11 @@ $❯ build/moviebuddy/bin/moviebuddy
   - 이를 해결하기 위해 스프링의 AOP 기술을 사용하면 좋다
 - JDK 기본 기술 외 여러가지 AOP 기술을 제공한다.
   - Bytebuddy, CGLib, JavaAssist 등
+
+#### Section18.
+- 여전히 남은 문제들
+  - AOP를 적용할 대상이 많다면 적용 코드를 매번 작성해야 한다.
+  - 어드바이스가 메서드를 구분하지 않고 타겟 클래스의 모든 메서드에 반영된다.
+- 물론 스프링은 이를 해결하기 위한 수단을 갖고 있다.
+  - 빈 후처리기(PostBeanCreator)
+- 가장 편리한 방법은 빈 후처리기에 Advisor(advice + pointcut)을 등록하는 것

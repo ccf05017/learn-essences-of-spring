@@ -1,20 +1,18 @@
 package moviebuddy.configuration;
 
-import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import moviebuddy.domain.Movie;
-import moviebuddy.domain.MovieReader;
-import moviebuddy.infrastructure.CachingMovieReader;
-import moviebuddy.infrastructure.CsvMovieReader;
 import moviebuddy.infrastructure.advice.CachingAdvice;
-import org.springframework.aop.framework.ProxyFactoryBean;
+import org.aopalliance.aop.Advice;
+import org.springframework.aop.Advisor;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import java.util.List;
+import javax.cache.annotation.CacheResult;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
@@ -31,18 +29,18 @@ public class MovieBuddyConfiguration {
         return jaxb2Marshaller;
     }
 
-    @Bean
-    @Primary
-    public ProxyFactoryBean cachingMovieReaderFactory(ApplicationContext applicationContext) {
-        MovieReader target = applicationContext.getBean(MovieReader.class);
-        CacheManager cacheManager = applicationContext.getBean(CacheManager.class);
-
-        ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
-        proxyFactoryBean.setTarget(target);
-        proxyFactoryBean.addAdvice(new CachingAdvice(cacheManager));
-
-        return proxyFactoryBean;
-    }
+//    @Bean
+//    @Primary
+//    public ProxyFactoryBean cachingMovieReaderFactory(ApplicationContext applicationContext) {
+//        MovieReader target = applicationContext.getBean(MovieReader.class);
+//        CacheManager cacheManager = applicationContext.getBean(CacheManager.class);
+//
+//        ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
+//        proxyFactoryBean.setTarget(target);
+//        proxyFactoryBean.addAdvice(new CachingAdvice(cacheManager));
+//
+//        return proxyFactoryBean;
+//    }
 
     @Bean
     public CacheManager caffeineCacheManager() {
@@ -50,6 +48,20 @@ public class MovieBuddyConfiguration {
         caffeineCacheManager.setCaffeine(Caffeine.newBuilder().expireAfterWrite(3, TimeUnit.SECONDS));
 
         return caffeineCacheManager;
+    }
+
+    @Bean
+    public Advisor cachingAdvisor(CacheManager cacheManager) {
+        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null, CacheResult.class);
+        Advice cachingAdvice = new CachingAdvice(cacheManager);
+
+        // Advisor = PointCut(대상 선정 알고리즘) + Advice(부가기능)
+        return new DefaultPointcutAdvisor(pointcut, cachingAdvice);
+    }
+
+    @Bean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        return new DefaultAdvisorAutoProxyCreator();
     }
 
 }
