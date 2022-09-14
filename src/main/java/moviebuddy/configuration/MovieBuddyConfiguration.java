@@ -1,24 +1,19 @@
 package moviebuddy.configuration;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
-import moviebuddy.infrastructure.advice.CachingAdvice;
-import org.aopalliance.aop.Advice;
-import org.springframework.aop.Advisor;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.aop.support.DefaultPointcutAdvisor;
-import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
+import moviebuddy.infrastructure.cache.CachingAspect;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.*;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import javax.cache.annotation.CacheResult;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
 @PropertySource("/application.properties")
 @ComponentScan(basePackages = {"moviebuddy"})
 @Import({DomainModuleConfig.class, DatasourceModuleConfig.class})
+@EnableAspectJAutoProxy
 public class MovieBuddyConfiguration {
 
     @Bean
@@ -50,18 +45,23 @@ public class MovieBuddyConfiguration {
         return caffeineCacheManager;
     }
 
-    @Bean
-    public Advisor cachingAdvisor(CacheManager cacheManager) {
-        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null, CacheResult.class);
-        Advice cachingAdvice = new CachingAdvice(cacheManager);
+//    @Bean
+//    public Advisor cachingAdvisor(CacheManager cacheManager) {
+//        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null, CacheResult.class);
+//        Advice cachingAdvice = new CachingAdvice(cacheManager);
+//
+//        // Advisor = PointCut(대상 선정 알고리즘) + Advice(부가기능)
+//        return new DefaultPointcutAdvisor(pointcut, cachingAdvice);
+//    }
+//
+//    @Bean
+//    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+//        return new DefaultAdvisorAutoProxyCreator();
+//    }
 
-        // Advisor = PointCut(대상 선정 알고리즘) + Advice(부가기능)
-        return new DefaultPointcutAdvisor(pointcut, cachingAdvice);
-    }
-
     @Bean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-        return new DefaultAdvisorAutoProxyCreator();
+    public CachingAspect cachingAspect(CacheManager cacheManager) {
+        return new CachingAspect(cacheManager);
     }
 
 }

@@ -153,3 +153,8 @@ $❯ build/moviebuddy/bin/moviebuddy
 - 물론 스프링은 이를 해결하기 위한 수단을 갖고 있다.
   - 빈 후처리기(PostBeanCreator)
 - 가장 편리한 방법은 빈 후처리기에 Advisor(advice + pointcut)을 등록하는 것
+
+#### Section19.
+- AspectJ
+  - 스프링 AOP와 유사한 역할을 수행함
+  - 애노테이션 기반의 AOP를 수행하게 도와줌

@@ -1,4 +1,4 @@
-package moviebuddy.infrastructure.advice;
+package moviebuddy.infrastructure.cache;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
