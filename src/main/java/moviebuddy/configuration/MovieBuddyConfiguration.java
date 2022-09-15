@@ -1,9 +1,12 @@
 package moviebuddy.configuration;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
-import moviebuddy.infrastructure.cache.CachingAspect;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
+import org.springframework.cache.interceptor.*;
+import org.springframework.cache.jcache.interceptor.SimpleExceptionCacheResolver;
 import org.springframework.context.annotation.*;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
@@ -13,8 +16,9 @@ import java.util.concurrent.TimeUnit;
 @PropertySource("/application.properties")
 @ComponentScan(basePackages = {"moviebuddy"})
 @Import({DomainModuleConfig.class, DatasourceModuleConfig.class})
-@EnableAspectJAutoProxy
-public class MovieBuddyConfiguration {
+//@EnableAspectJAutoProxy
+@EnableCaching
+public class MovieBuddyConfiguration implements CachingConfigurer {
 
     @Bean
     public Jaxb2Marshaller jaxb2Marshaller() {
@@ -59,9 +63,29 @@ public class MovieBuddyConfiguration {
 //        return new DefaultAdvisorAutoProxyCreator();
 //    }
 
-    @Bean
-    public CachingAspect cachingAspect(CacheManager cacheManager) {
-        return new CachingAspect(cacheManager);
+//    @Bean
+//    public CachingAspect cachingAspect(CacheManager cacheManager) {
+//        return new CachingAspect(cacheManager);
+//    }
+
+
+    @Override
+    public CacheManager cacheManager() {
+        return caffeineCacheManager();
     }
 
+    @Override
+    public CacheResolver cacheResolver() {
+        return new SimpleExceptionCacheResolver(caffeineCacheManager());
+    }
+
+    @Override
+    public KeyGenerator keyGenerator() {
+        return new SimpleKeyGenerator();
+    }
+
+    @Override
+    public CacheErrorHandler errorHandler() {
+        return new SimpleCacheErrorHandler();
+    }
 }
